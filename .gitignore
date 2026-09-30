@@ -1,0 +1,30 @@
+# Secrets / environment
+.env
+*.env
+!.env.example
+
+# Ansible secrets / Vault
+*.vault
+*.vault.yml
+vault-password*
+
+# SSH keys and host fingerprints
+ssh/*
+!ssh/.gitkeep
+
+# Generated files
+*.retry
+*.log
+*.tmp
+*.swp
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Local Ansible configuration
+ansible/group_vars/docker_sites.yml
+
+# Local Ansible inventory
+ansible/inventory.ini

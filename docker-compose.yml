@@ -1,0 +1,12 @@
+services:
+  ansible:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible
+    working_dir: /ansible
+    volumes:
+      - ./ansible:/ansible
+      - ./ssh:/root/.ssh
+    command: sleep infinity
+    tty: true

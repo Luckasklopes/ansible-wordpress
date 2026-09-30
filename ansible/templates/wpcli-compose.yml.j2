@@ -1,0 +1,25 @@
+services:
+  wpcli:
+    image: wordpress:cli
+    restart: "no"
+    user: "33:33"
+
+    env_file:
+      - "{{ wp_env_file }}"
+
+    environment:
+      WORDPRESS_DB_HOST: db
+
+    volumes:
+      - "{{ wp_volume }}:/var/www/html"
+
+    networks:
+      - "{{ wp_network }}"
+
+volumes:
+  {{ wp_volume }}:
+    external: true
+
+networks:
+  {{ wp_network }}:
+    external: true

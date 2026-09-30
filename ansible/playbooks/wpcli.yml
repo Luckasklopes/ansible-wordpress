@@ -1,0 +1,11 @@
+---
+- name: Verificar atualizações de plugins
+  hosts: docker_sites
+  become: false
+
+  tasks:
+    - name: Verificar plugins de cada site
+      ansible.builtin.include_tasks: check_plugins.yml
+      loop: "{{ wp_sites }}"
+      loop_control:
+        loop_var: site

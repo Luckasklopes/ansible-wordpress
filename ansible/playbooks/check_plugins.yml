@@ -1,0 +1,26 @@
+- name: Gerar Compose do WP-CLI - {{ site.name }}
+  ansible.builtin.template:
+    src: ../templates/wpcli-compose.yml.j2
+    dest: /opt/docker-sites/cli/docker-compose.yml
+    mode: "0644"
+  vars:
+    wp_volume: "{{ site.volume }}"
+    wp_network: "{{ site.network }}"
+    wp_env_file: "{{ site.env_file }}"
+
+- name: Verificar plugins - {{ site.name }}
+  ansible.builtin.command:
+    cmd: docker compose run --rm wpcli wp plugin list --update=available
+    chdir: /opt/docker-sites/cli
+  register: plugin_updates
+  changed_when: false
+
+- name: Mostrar atualizações - {{ site.name }}
+  ansible.builtin.debug:
+    var: plugin_updates.stdout_lines
+  when: plugin_updates.stdout_lines | length > 1
+
+- name: Nenhuma atualização - {{ site.name }}
+  ansible.builtin.debug:
+    msg: "Nenhum plugin possui atualização disponível."
+  when: plugin_updates.stdout_lines | length <= 1

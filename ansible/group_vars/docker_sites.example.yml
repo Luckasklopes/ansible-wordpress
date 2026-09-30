@@ -1,0 +1,6 @@
+---
+wp_sites:
+  - name: site-example
+    volume: site_site_wp
+    network: site_site-network
+    env_file: /opt/docker-sites/site-example/.env
